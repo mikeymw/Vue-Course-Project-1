@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h2 v-if="!playerattackfirst" class="text-center">YOU</h2>
+            <img :src="playerimg" class="imgclass">
+            <h2 v-if="playerattackfirst" class="text-center">You Attack First</h2>
+            <div class="healthbar">
+                <div class="healthbar text-center" :style="playerhealthStyle">
+                    {{playerhealth}}%
+                </div>
+            </div>
+            <span style="margin: 5px;"></span>
+            <div class="powerbar">
+                <div class="powerbar text-center" :style="playerpowerStyle">
+                    {{playerpower}}%
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h2 v-if="!bossattackfirst" class="text-center">Boss</h2>
+            <img :src="bossimg" class="imgclass">
+            <h2 v-if="bossattackfirst" class="text-center">Boss Attack First</h2>
+            <div class="healthbar">
+                <div class="healthbar text-center" :style="bosshealthStyle">
+                    {{bosshealth}}%
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game" @click="resetAll(); attackFirst();">START NEW GAME</button>
+
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+            <button @click="attackDamage" id="attack" :disabled="playerdead || bossdead">ATTACK</button>
+            <button @click="specialDamage" id="special-attack" :disabled="!specialPower || playerdead || bossdead">SPECIAL ATTACK (-20 Power)</button>
+            <button @click="ultyDamage" id="ulty" :disabled="!ultyPower || playerdead || bossdead">ULTY (-50 Power)</button>
+            <button @click="chargePower" id="powercharge" :disabled="playerdead || bossdead">Power Charge (+20 Power)</button>
+            <button @click="healing" id="heal" :disabled="!healPower || playerdead || bossdead">HEAL (-20 Power)</button>
+            <button @click="giveUp" id="give-up" :disabled="playerdead || bossdead">GIVE UP</button>
+        </div>
+    </section>
+    <section>
+        <div class="row log">
+            <div class="small-6 columns">
+                <ul>
+                    <li class="log player-turn" v-for="log in playerlogarray">
+                        {{log}}
+                    </li>
+                </ul>
+            </div>
+            <div class="small-6 columns">
+                <ul>
+                    <li class="log boss-turn" v-for="log in bosslogarray">
+                        {{log}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
