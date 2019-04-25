@@ -94,6 +94,8 @@ new Vue ({
             this.bossattackfirst = false;
             this.playerlogarray = [];
             this.bosslogarray = [];
+            this.playerimg = 'iori.png';
+            this.bossimg = 'mukai.png';
         },
 
         attackFirst: function () {
